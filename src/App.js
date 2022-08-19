@@ -1,3 +1,4 @@
+import SignUrl from './SignUrl';
 import './App.css';
 import Dropdown from './DropDownForm';
 import FileUpload from './FileUpload';
@@ -8,7 +9,8 @@ function App() {
   return (
     // <Form />
    // <Dropdown />
-   <FileUpload />
+  //  <FileUpload />
+  <SignUrl />
   );
 }
 
