@@ -4,16 +4,20 @@ import Dropdown from './DropDownForm';
 import FileUpload from './FileUpload';
 import Form from './Form';
 import AxPost from './AxPost';
+import PostForm from './TestPost';
+import FilePost from './FilePost';
 
 //import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     // <Form />
-    //<Dropdown />
+    <Dropdown />
    //<FileUpload />
    //<SignUrl />
-   <AxPost />
+  //  <AxPost />
+  // <PostForm />
+  // <FilePost />
   );
 }
 
