@@ -8,9 +8,9 @@ import Form from './Form';
 function App() {
   return (
     // <Form />
-    <Dropdown />
+   // <Dropdown />
   //  <FileUpload />
-  // <SignUrl />
+   <SignUrl />
   );
 }
 
