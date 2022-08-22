@@ -54,7 +54,7 @@ class QueryForm extends Component {
     //     this.setState({ file: file });
     // };
     handleSubmit = async (event) => {
-        alert(`${this.state.selectedCustomer} ${this.state.selectedUser}`);
+        //alert(`${this.state.selectedCustomer} ${this.state.selectedUser}`);
         event.preventDefault();
         //console.log(this.state.file);
         const {  selectedCustomer, selectedUser } = this.state;
@@ -66,7 +66,7 @@ class QueryForm extends Component {
         }
         const queryRes = await axios.post(lambdaUrlPost, metaData);
         //const data = JSON.parse(putRes.data);
-        alert(`${this.state.selectedCustomer} ${this.state.selectedUser}`);
+        //alert(`${this.state.selectedCustomer} ${this.state.selectedUser}`);
         console.log(" response " ,queryRes.data);
         console.log(typeof(queryRes.data));
         this.setState({ metaData: queryRes.data });
