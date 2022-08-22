@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import ShowData from "./ShowData";
 //const lambdaUrlGet = "https://wtoitw6jyc.execute-api.ap-northeast-1.amazonaws.com/?key=file.txt";
 //const lambdaUrlPost = "https://wtoitw6jyc.execute-api.ap-northeast-1.amazonaws.com/submit?key=file.txt";
 const lambdaUrlPost = "https://wtoitw6jyc.execute-api.ap-northeast-1.amazonaws.com/submit";
@@ -12,10 +13,10 @@ class QueryForm extends Component {
         this.state = {
             customers: [],
             users: [],
-            selectedCustomer: "--Choose Customer--",
-            selectedUser: "--Choose User--",
+            selectedCustomer: "",
+            selectedUser: "",
             //file: null,
-            data: []
+            metaData: null
         };
         this.changeCustomer = this.changeCustomer.bind(this);
         this.changeUser = this.changeUser.bind(this);
@@ -24,11 +25,12 @@ class QueryForm extends Component {
     componentDidMount() {
         this.setState({
             customers: [
-                { name: "BBC", users: ["all", "Clark", "Michel", "Alberto", "Deny"] },
-                {name: "Aljazeera", users: ["all","Charlie", "Dareen", "Marwan", "Richelle"]},
-                { name: "BTV", users: ["all","Sakib", "Miraz", "Liton", "Rubel"] },
-                { name: "Foxnews", users: ["all","Adow", "Carey", "Angela", "Ahelbarra"] },
-                { name: "CNN", users: ["all","Jack", "Daniel", "Mickel", "Mark"] },
+                { name: "All", users: ["All"] },
+                { name: "BBC", users: ["All", "Clark", "Michel", "Alberto", "Deny"] },
+                {name: "Aljazeera", users: ["All","Charlie", "Dareen", "Marwan", "Richelle"]},
+                { name: "BTV", users: ["All","Sakib", "Miraz", "Liton", "Rubel"] },
+                { name: "Foxnews", users: ["All","Adow", "Carey", "Angela", "Ahelbarra"] },
+                { name: "CNN", users: ["All","Jack", "Daniel", "Mickel", "Mark"] },
             ],
         });
     }
@@ -52,7 +54,7 @@ class QueryForm extends Component {
     //     this.setState({ file: file });
     // };
     handleSubmit = async (event) => {
-        //alert(`${this.state.selectedCustomer} ${this.state.selectedUser}`);
+        alert(`${this.state.selectedCustomer} ${this.state.selectedUser}`);
         event.preventDefault();
         //console.log(this.state.file);
         const {  selectedCustomer, selectedUser } = this.state;
@@ -62,12 +64,13 @@ class QueryForm extends Component {
             uploadDate: '',
             query: true
         }
-        const putRes = await axios.post(lambdaUrlPost, metaData);
+        const queryRes = await axios.post(lambdaUrlPost, metaData);
         //const data = JSON.parse(putRes.data);
-        console.log(" response " ,putRes.data);
-        
-        this.setState({ data: putRes.data });
-        console.log("state data: ", this.state.data);
+        alert(`${this.state.selectedCustomer} ${this.state.selectedUser}`);
+        console.log(" response " ,queryRes.data);
+        console.log(typeof(queryRes.data));
+        this.setState({ metaData: queryRes.data });
+        console.log("state data: ", this.state.metaData);
     };
 
     submitHandler = (e) => {
@@ -75,6 +78,23 @@ class QueryForm extends Component {
 
     };
     render() {
+        const {metaData} = this.state;
+        let showData;
+        //const obj = JSON.parse(data);
+        // console.log("print");
+        // console.log(metaData);
+        // console.log("type of data ", typeof(metaData));
+        //  console.log(metaData);
+        //  data = JSON.parse(data);
+        // 
+         //if(data.customer){console.log(data.customer);}
+        //console.log(" data ", data.customer);
+        if(metaData)
+        {
+            console.log(" hello found ");
+            showData = metaData;
+        }
+         
         return (
             <div id="container">
                 <h2>Dynamo Table Query</h2>
@@ -93,7 +113,7 @@ class QueryForm extends Component {
                     <label>Users</label>
                     <select
                         placeholder="User"
-                        value={this.state.selectUser}
+                        value={this.state.selectedUser}
                         onChange={this.changeUser}
                     >
                         <option>--Choose user--</option>
@@ -107,7 +127,7 @@ class QueryForm extends Component {
                     </div>
                 </form>
                 <div>
-                    {/* {this.state.data} */}
+                    <ShowData metaData={this.metaData} />
                 </div>
             </div>
         );

@@ -10,9 +10,13 @@ import QueryForm from './QueryForm';
 function App() {
   return (
     // <Form />
-    // <Dropdown />
+    
    //<Items />
-   <QueryForm />
+   <div>
+    <Dropdown />
+    <QueryForm />
+   </div>
+   
   );
 }
 
